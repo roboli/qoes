@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Phone">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+    <style name="Cell">
+        <item name="android:layout_width">85dp</item>
+        <item name="android:layout_height">85dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#f9f9f9</item>
+        <item name="android:layout_marginTop">@dimen/cell_margin</item>
+        <item name="android:layout_marginRight">@dimen/cell_margin</item>
+        <item name="android:layout_marginBottom">@dimen/cell_margin</item>
+        <item name="android:layout_marginLeft">@dimen/cell_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>
