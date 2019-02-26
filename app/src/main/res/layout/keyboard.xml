@@ -13,39 +13,49 @@
             android:gravity="center">
         <TableRow>
             <TextView
+                    android:id="@+id/btn_1"
                     android:text="1"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_2"
                     android:text="2"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_3"
                     android:text="3"
                     style="@style/Cell"/>
         </TableRow>
         <TableRow>
             <TextView
+                    android:id="@+id/btn_4"
                     android:text="4"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_5"
                     android:text="5"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_6"
                     android:text="6"
                     style="@style/Cell"/>
         </TableRow>
         <TableRow>
             <TextView
+                    android:id="@+id/btn_7"
                     android:text="7"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_8"
                     android:text="8"
                     style="@style/Cell"/>
             <TextView
+                    android:id="@+id/btn_9"
                     android:text="9"
                     style="@style/Cell"/>
         </TableRow>
         <TableRow>
             <TextView
+                    android:id="@+id/btn_0"
                     android:layout_column="1"
                     android:text="0"
                     style="@style/Cell"/>
