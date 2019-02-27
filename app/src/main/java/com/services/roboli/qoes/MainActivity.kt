@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         (findViewById<TextView>(R.id.phone)).setText(phoneNumber)
-        (findViewById<TextView>(R.id.op_name)).setText(identifyOp(phoneNumber.toInt()))
+
+        if (phoneNumber.length == 4) {
+            (findViewById<TextView>(R.id.op_name)).setText(identifyOp(phoneNumber.toInt()))
+        }
     }
 }
