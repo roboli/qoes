@@ -1,0 +1,74 @@
+package com.services.roboli.qoes
+
+const val MOVISTAR = "MOVISTAR"
+const val CLARO = "CLARO"
+const val TIGO = "TIGO"
+const val UNITEL = "UNITEL"
+const val UNKNOWN = "UNKNOWN"
+
+data class Range(val name: String, val start: Int, val end: Int)
+
+val ranges = listOf<com.services.roboli.qoes.Range>(
+    Range(TIGO, 30000000, 32289999),
+    Range(CLARO, 32290000, 32299999),
+    Range(TIGO, 32300000, 33099999),
+    Range(MOVISTAR, 34000000, 34499999),
+    Range(TIGO, 40000000, 40999999),
+    Range(CLARO, 41000000, 42999999),
+    Range(MOVISTAR, 43000000, 44759999),
+    Range(TIGO, 44760000, 46999999),
+    Range(CLARO, 47000000, 47729999),
+    Range(TIGO, 47730000, 48199999),
+    Range(UNITEL, 48200000, 48219999),
+    Range(TIGO, 48220000, 50099999),
+    Range(CLARO, 50100000, 50199999),
+    Range(MOVISTAR, 50200000, 50299999),
+    Range(TIGO, 50300000, 50699999),
+    Range(MOVISTAR, 50700000, 51099999),
+    Range(CLARO, 51100000, 51399999),
+    Range(MOVISTAR, 51400000, 51499999),
+    Range(TIGO, 51500000, 51999999),
+    Range(TIGO, 52000000, 52099999),
+    Range(MOVISTAR, 52100000, 52999999),
+    Range(TIGO, 53000000, 53099999),
+    Range(CLARO, 53100000, 53119999),
+    Range(MOVISTAR, 53120000, 53139999),
+    Range(TIGO, 53140000, 53899999),
+    Range(MOVISTAR, 53900000, 54099999),
+    Range(CLARO, 54100000, 54999999),
+    Range(MOVISTAR, 55000000, 55099999),
+    Range(CLARO, 55100000, 55179999),
+    Range(MOVISTAR, 55180000, 55199999),
+    Range(TIGO, 55210000, 55299999),
+    Range(CLARO, 55310000, 55399999),
+    Range(MOVISTAR, 55400000, 55429999),
+    Range(CLARO, 55430000, 55449999),
+    Range(MOVISTAR, 55450000, 55499999),
+    Range(TIGO, 55500000, 55539999),
+    Range(CLARO, 55540000, 55799999),
+    Range(TIGO, 55800000, 55819999),
+    Range(CLARO, 55820000, 55999999),
+    Range(MOVISTAR, 56000000, 56089999),
+    Range(CLARO, 56100000, 56399999),
+    Range(MOVISTAR, 56400000, 56899999),
+    Range(CLARO, 56900000, 56999999),
+    Range(TIGO, 57000000, 57099999),
+    Range(CLARO, 57100000, 57189999),
+    Range(TIGO, 57190000, 57899999),
+    Range(MOVISTAR, 57900000, 57999999),
+    Range(TIGO, 58000000, 58099999),
+    Range(CLARO, 58100000, 58189999),
+    Range(TIGO, 58190000, 58199999),
+    Range(CLARO, 58200000, 58799999),
+    Range(TIGO, 58800000, 59099999),
+    Range(CLARO, 59100000, 59149999),
+    Range(MOVISTAR, 59150000, 59179999),
+    Range(TIGO, 59180000, 59199999),
+    Range(CLARO, 59200000, 59899999),
+    Range(TIGO, 59900000, 59999999)
+)
+
+fun identifyOp(phone: Int): String {
+    val result: Range? = ranges.find { it.start <= phone && phone <= it.end }
+    return result?.name ?: UNKNOWN
+}
