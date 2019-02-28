@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         connectButton(findViewById(R.id.btn_8))
         connectButton(findViewById(R.id.btn_9))
         connectButton(findViewById(R.id.btn_0))
+        connectButton(findViewById(R.id.btn_bksp))
     }
 
     fun connectButton(btn: TextView) {
@@ -41,13 +42,16 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_7 ->  phoneNumber += "7"
             R.id.btn_8 ->  phoneNumber += "8"
             R.id.btn_9 ->  phoneNumber += "9"
+            R.id.btn_bksp -> phoneNumber = phoneNumber.dropLast(1)
             else -> phoneNumber += "0"
         }
 
         (findViewById<TextView>(R.id.phone)).setText(phoneNumber)
 
-        if (phoneNumber.length == 4) {
-            (findViewById<TextView>(R.id.op_name)).setText(identifyOp(phoneNumber.toInt()))
+        if (phoneNumber.length >= 4 && phoneNumber.length <= 8) {
+            (findViewById<TextView>(R.id.op_name)).setText(identifyOp(phoneNumber.take(4).toInt()))
+        } else if (phoneNumber.length < 4 || phoneNumber.length > 8) {
+            (findViewById<TextView>(R.id.op_name)).setText("")
         }
     }
 }
