@@ -3,8 +3,8 @@ package com.services.roboli.qoes
 const val MOVISTAR = "MOVISTAR"
 const val CLARO = "CLARO"
 const val TIGO = "TIGO"
-const val UNITEL = "UNITEL"
 const val UNKNOWN = "UNKNOWN"
+const val UNITEL = UNKNOWN
 
 data class Range(val name: String, val start: Int, val end: Int)
 

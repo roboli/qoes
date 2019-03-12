@@ -1,18 +1,69 @@
 package com.services.roboli.qoes
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.animation.FastOutSlowInInterpolator
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AnimationSet
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.coroutines.*
 import org.w3c.dom.Text
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+    val DURATION_SLOW: Long = 700
+    val DURATION_FAST: Long = 300
+    val IN_START_POS = 580f
+    val OUT_END_POS = -650f
+
+    var opLogo: ImageView? = null
+    var logoSet: AnimatorSet? = null
+    var animatorStart: ObjectAnimator? = null
+    var animatorEnd: ObjectAnimator? = null
+    var textView: TextView? = null
+
+    var currentOp = UNKNOWN
     var phoneNumber = ""
+
+    lateinit var mJob: Job
+    override val coroutineContext: CoroutineContext
+        get() = mJob + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mJob = Job()
+
+        opLogo = findViewById<ImageView>(R.id.op_logo)
+        textView = findViewById<TextView>(R.id.phone)
+
+        animatorStart = ObjectAnimator.ofFloat(opLogo, "x", IN_START_POS, 0f)
+        animatorStart?.interpolator = FastOutSlowInInterpolator()
+        animatorStart?.setDuration(DURATION_SLOW)
+
+        animatorEnd = ObjectAnimator.ofFloat(opLogo, "x", 0f, OUT_END_POS)
+        animatorEnd?.interpolator = FastOutSlowInInterpolator()
+        animatorEnd?.setDuration(DURATION_FAST)
+        animatorEnd?.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator?) {}
+            override fun onAnimationEnd(animation: Animator?) {
+                opLogo?.setImageResource(if (currentOp == UNKNOWN) R.mipmap.ic_question else R.mipmap.ic_claro)
+            }
+        })
+
+        logoSet = AnimatorSet()
+        logoSet?.play(animatorStart)?.after(animatorEnd)
 
         connectButton(findViewById(R.id.btn_1))
         connectButton(findViewById(R.id.btn_2))
@@ -46,12 +97,39 @@ class MainActivity : AppCompatActivity() {
             else -> phoneNumber += "0"
         }
 
-        (findViewById<TextView>(R.id.phone)).setText(phoneNumber)
+        textView?.setText(phoneNumber)
+        launch {
+            startAnimation()
+        }
+    }
 
-        if (phoneNumber.length >= 4 && phoneNumber.length <= 8) {
-            (findViewById<TextView>(R.id.op_name)).setText(identifyOp(phoneNumber.take(4).toInt()))
-        } else if (phoneNumber.length < 4 || phoneNumber.length > 8) {
-            (findViewById<TextView>(R.id.op_name)).setText("")
+    var waiting = false
+
+    suspend fun startAnimation() {
+        if (waiting) return
+
+        if (logoSet?.isRunning == true) {
+            waiting = true
+            delay(DURATION_FAST + DURATION_SLOW)
+        }
+
+        waiting = false
+        var newPhoneTxt: String = textView?.text.toString()
+
+        if (newPhoneTxt.length >= 4 && newPhoneTxt.length <= 8) {
+            val op = identifyOp(newPhoneTxt.take(4).toInt())
+
+            if (currentOp != op) {
+                logoSet?.start()
+            }
+
+            currentOp = op
+        } else if (newPhoneTxt.length < 4 || newPhoneTxt.length > 8) {
+            if (currentOp != UNKNOWN) {
+                logoSet?.start()
+            }
+
+            currentOp = UNKNOWN
         }
     }
 }

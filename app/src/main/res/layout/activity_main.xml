@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@android:color/white">
-    <TextView
-            android:id="@+id/op_name"
+
+    <ImageView
+            android:id="@+id/op_logo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:textAlignment="center"
-            android:text="" />
+            android:contentDescription="logo"
+            android:src="@mipmap/ic_question" />
 
-    <include layout="@layout/phone" />
+    <include
+            android:id="@+id/layout_phone"
+            layout="@layout/phone" />
 
-    <include layout="@layout/keyboard" />
-</android.support.v7.widget.LinearLayoutCompat>
+    <include
+            android:id="@+id/layout_keyboard"
+            layout="@layout/keyboard" />
+</LinearLayout>
