@@ -58,7 +58,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationRepeat(animation: Animator?) {}
             override fun onAnimationEnd(animation: Animator?) {
-                opLogo?.setImageResource(if (currentOp == UNKNOWN) R.mipmap.ic_question else R.mipmap.ic_claro)
+                when (currentOp) {
+                    CLARO    -> opLogo?.setImageResource(R.mipmap.ic_claro)
+                    MOVISTAR -> opLogo?.setImageResource(R.mipmap.ic_movistar)
+                    TIGO     -> opLogo?.setImageResource(R.mipmap.ic_tigo)
+                    else     -> opLogo?.setImageResource(R.mipmap.ic_question)
+                }
             }
         })
 
