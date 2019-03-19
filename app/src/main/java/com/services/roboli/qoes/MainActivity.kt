@@ -5,18 +5,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.view.animation.FastOutSlowInInterpolator
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.AnimationSet
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.coroutines.*
-import org.w3c.dom.Text
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -83,7 +77,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         connectButton(findViewById(R.id.btn_bksp))
     }
 
-    fun connectButton(btn: TextView) {
+    fun connectButton(btn: View) {
         btn.setOnClickListener { v -> btnClicked(v) }
     }
 

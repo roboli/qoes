@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Que operador es</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="cero">0</string>
+
+    <string name="abc">ABC</string>
+    <string name="def">DEF</string>
+    <string name="ghi">GHI</string>
+    <string name="jkl">JKL</string>
+    <string name="mno">MNO</string>
+    <string name="pqrs">PQRS</string>
+    <string name="tuv">TUV</string>
+    <string name="wxyz">WXYZ</string>
+    <string name="plus">+</string>
 </resources>
