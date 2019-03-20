@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     val DURATION_FAST: Long = 300
     val IN_START_POS = 580f
     val OUT_END_POS = -650f
+    val MIDDLE_POS = 20f
 
     var opLogo: ImageView? = null
     var logoSet: AnimatorSet? = null
@@ -40,11 +41,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         opLogo = findViewById<ImageView>(R.id.op_logo)
         textView = findViewById<TextView>(R.id.phone)
 
-        animatorStart = ObjectAnimator.ofFloat(opLogo, "x", IN_START_POS, 0f)
+        animatorStart = ObjectAnimator.ofFloat(opLogo, "x", IN_START_POS, MIDDLE_POS)
         animatorStart?.interpolator = FastOutSlowInInterpolator()
         animatorStart?.setDuration(DURATION_SLOW)
 
-        animatorEnd = ObjectAnimator.ofFloat(opLogo, "x", 0f, OUT_END_POS)
+        animatorEnd = ObjectAnimator.ofFloat(opLogo, "x", MIDDLE_POS, OUT_END_POS)
         animatorEnd?.interpolator = FastOutSlowInInterpolator()
         animatorEnd?.setDuration(DURATION_FAST)
         animatorEnd?.addListener(object : Animator.AnimatorListener {
