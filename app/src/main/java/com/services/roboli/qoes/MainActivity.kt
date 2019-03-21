@@ -3,9 +3,10 @@ package com.services.roboli.qoes
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.view.View
 import android.widget.ImageView
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     var animatorStart: ObjectAnimator? = null
     var animatorEnd: ObjectAnimator? = null
     var textView: TextView? = null
+    var toneGenerator: ToneGenerator? = null
 
     var currentOp = UNKNOWN
     var phoneNumber = ""
@@ -65,6 +67,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         logoSet = AnimatorSet()
         logoSet?.play(animatorStart)?.after(animatorEnd)
 
+        toneGenerator = ToneGenerator(AudioManager.STREAM_DTMF, 90)
+
         connectButton(findViewById(R.id.btn_1))
         connectButton(findViewById(R.id.btn_2))
         connectButton(findViewById(R.id.btn_3))
@@ -84,17 +88,49 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     fun btnClicked(view: View) {
         when (view.id) {
-            R.id.btn_1 ->  phoneNumber += "1"
-            R.id.btn_2 ->  phoneNumber += "2"
-            R.id.btn_3 ->  phoneNumber += "3"
-            R.id.btn_4 ->  phoneNumber += "4"
-            R.id.btn_5 ->  phoneNumber += "5"
-            R.id.btn_6 ->  phoneNumber += "6"
-            R.id.btn_7 ->  phoneNumber += "7"
-            R.id.btn_8 ->  phoneNumber += "8"
-            R.id.btn_9 ->  phoneNumber += "9"
-            R.id.btn_bksp -> phoneNumber = phoneNumber.dropLast(1)
-            else -> phoneNumber += "0"
+            R.id.btn_1 ->  {
+                phoneNumber += "1"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_1, 100)
+            }
+            R.id.btn_2 ->  {
+                phoneNumber += "2"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_2, 100)
+            }
+            R.id.btn_3 ->  {
+                phoneNumber += "3"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_3, 100)
+            }
+            R.id.btn_4 ->  {
+                phoneNumber += "4"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_4, 100)
+            }
+            R.id.btn_5 ->  {
+                phoneNumber += "5"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_5, 100)
+            }
+            R.id.btn_6 ->  {
+                phoneNumber += "6"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_6, 100)
+            }
+            R.id.btn_7 ->  {
+                phoneNumber += "7"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_7, 100)
+            }
+            R.id.btn_8 ->  {
+                phoneNumber += "8"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_8, 100)
+            }
+            R.id.btn_9 ->  {
+                phoneNumber += "9"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_9, 100)
+            }
+            R.id.btn_bksp -> {
+                phoneNumber = phoneNumber.dropLast(1)
+            }
+            else -> {
+                phoneNumber += "0"
+                toneGenerator?.startTone(ToneGenerator.TONE_DTMF_0, 100)
+            }
         }
 
         textView?.setText(phoneNumber)
