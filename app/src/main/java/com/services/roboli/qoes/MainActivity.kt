@@ -3,10 +3,13 @@ package com.services.roboli.qoes
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.media.AudioManager
 import android.media.ToneGenerator
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.view.View
 import android.widget.ImageView
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     var animatorStart: ObjectAnimator? = null
     var animatorEnd: ObjectAnimator? = null
     var textView: TextView? = null
+    var btnPhone: FloatingActionButton? = null
     var toneGenerator: ToneGenerator? = null
 
     var currentOp = UNKNOWN
@@ -80,6 +84,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         connectButton(findViewById(R.id.btn_9))
         connectButton(findViewById(R.id.btn_0))
         connectButton(findViewById(R.id.btn_bksp))
+
+        btnPhone = findViewById(R.id.btn_phone)
+        btnPhone?.setOnClickListener { makeCall() }
+    }
+
+    fun makeCall() {
+        var intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber))
+        startActivity(intent)
     }
 
     fun connectButton(btn: View) {
