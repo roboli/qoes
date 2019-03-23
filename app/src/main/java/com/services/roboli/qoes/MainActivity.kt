@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.net.Uri
@@ -47,11 +48,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         opLogo = findViewById<ImageView>(R.id.op_logo)
         textView = findViewById<TextView>(R.id.phone)
 
-        animatorStart = ObjectAnimator.ofFloat(opLogo, "x", IN_START_POS, MIDDLE_POS)
+        var orientation = "x"
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            orientation = "y"
+        }
+
+        animatorStart = ObjectAnimator.ofFloat(opLogo, orientation, IN_START_POS, MIDDLE_POS)
         animatorStart?.interpolator = FastOutSlowInInterpolator()
         animatorStart?.setDuration(DURATION_SLOW)
 
-        animatorEnd = ObjectAnimator.ofFloat(opLogo, "x", MIDDLE_POS, OUT_END_POS)
+        animatorEnd = ObjectAnimator.ofFloat(opLogo, orientation, MIDDLE_POS, OUT_END_POS)
         animatorEnd?.interpolator = FastOutSlowInInterpolator()
         animatorEnd?.setDuration(DURATION_FAST)
         animatorEnd?.addListener(object : Animator.AnimatorListener {
