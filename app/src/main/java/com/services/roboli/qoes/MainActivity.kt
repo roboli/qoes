@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.animation.FastOutSlowInInterpolator
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     var animatorStart: ObjectAnimator? = null
     var animatorEnd: ObjectAnimator? = null
     var textView: TextView? = null
+    var btnBksp: View? = null
     var btnPhone: FloatingActionButton? = null
     var toneGenerator: ToneGenerator? = null
 
@@ -80,6 +82,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         toneGenerator = ToneGenerator(AudioManager.STREAM_DTMF, 90)
 
+        btnBksp = findViewById(R.id.btn_bksp)
+
         connectButton(findViewById(R.id.btn_1))
         connectButton(findViewById(R.id.btn_2))
         connectButton(findViewById(R.id.btn_3))
@@ -90,7 +94,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         connectButton(findViewById(R.id.btn_8))
         connectButton(findViewById(R.id.btn_9))
         connectButton(findViewById(R.id.btn_0))
-        connectButton(findViewById(R.id.btn_bksp))
+        connectButton(btnBksp ?: findViewById(R.id.btn_bksp))
+
+        // Clear phone text when hold down
+        btnBksp?.setOnLongClickListener { clearPhoneText() }
 
         btnPhone = findViewById(R.id.btn_phone)
         btnPhone?.setOnClickListener { makeCall() }
@@ -99,6 +106,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     fun makeCall() {
         var intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber))
         startActivity(intent)
+    }
+
+    fun clearPhoneText(): Boolean {
+        phoneNumber = ""
+        textView?.setText(phoneNumber)
+
+        launch {
+            startAnimation()
+        }
+
+        return true
     }
 
     fun connectButton(btn: View) {
