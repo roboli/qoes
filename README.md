@@ -8,14 +8,15 @@ Ingresa cualquier numero telefonico y averigua a que operador pertenece, pudiend
 ## App URL
 https://play.google.com/store/apps/details?id=com.services.roboli.qoes
 
-_-- English Translation --_
 
-# qoes
+---
+
+### qoes
 Which operator is it? (For Android)
 
-## Description
+#### Description
 
 Enter any phone number and find out which operator it belongs to, this being Claro, Tigo or Movistar. The application works only for mobile numbers based in Guatemala.
 
-## App URL
+#### App URL
 https://play.google.com/store/apps/details?id=com.services.roboli.qoes
